@@ -12,4 +12,15 @@ public class ClientProxy extends CommonProxy
 	{
 		// This is for rendering
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return "[Divine Force client proxy]";
+	}
 }

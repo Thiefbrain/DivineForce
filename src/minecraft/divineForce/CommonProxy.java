@@ -1,9 +1,7 @@
 package divineForce;
 
 public class CommonProxy
-{
-	// TODO: Maybe move to divineForce.Server
-	
+{	
 	/**
 	 * Used for clients-side rendering; not used by the Server.
 	 * 
@@ -11,6 +9,17 @@ public class CommonProxy
 	 */
 	public void registerRenderers()
 	{
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return "[Divine Force common proxy]";
 	}
 	
 }
