@@ -16,7 +16,7 @@ Packets
 ===========
 All packets of this mod are built like this:
 
-+-----------+--------+-------------+
-| Packet ID | Length | Packet data |
-| (1 byte)  |        |             |
-+-----------+--------+-------------+
+    +-----------+--------+-------------+
+    | Packet ID | Length | Packet data |
+    | (1 byte)  |        |             |
+    +-----------+--------+-------------+
