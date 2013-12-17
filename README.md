@@ -11,6 +11,7 @@ These are the coding conventions for this mod:
 2. Block-brackets have to be on a single line (not: `if (...) {`)
 3. Each function and class- or instance-variables as well as classes should have a java doc comment
 4. Outputs should be internationalized
+5. Lines have a max-length of 160 characters (including spaces)
 
 Packets
 ===========

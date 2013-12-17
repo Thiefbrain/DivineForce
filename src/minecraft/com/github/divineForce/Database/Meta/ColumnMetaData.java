@@ -39,4 +39,52 @@ public class ColumnMetaData
         }
     }
 
+    /**
+     * @return FieldType
+     */
+    public FieldType getFieldType()
+    {
+        return fieldType;
+    }
+
+    /**
+     * @return Column name
+     */
+    public String getColumn()
+    {
+        return column;
+    }
+
+    /**
+     * @return getter method
+     */
+    public Method getGetterMethod()
+    {
+        return getterMethod;
+    }
+
+    /**
+     * @return true if value is readonly
+     */
+    public boolean isReadonly()
+    {
+        return isReadonly;
+    }
+
+    /**
+     * @return the return type
+     */
+    public Class<?> getReturnType()
+    {
+        return returnType;
+    }
+
+    /**
+     * @return setter method
+     */
+    public Method getSetterMethod()
+    {
+        return setterMethod;
+    }
+
 }
