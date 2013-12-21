@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.StringUtils;
 
 import com.github.divineForce.DivineForce;
 
@@ -94,23 +95,7 @@ public final class DatabaseManager
     }
 
     /**
-     * Executes the given select statement on the given connection and saves it in a statement pool.
-     * 
-     * @param statement
-     *            The statement
-     * @param connection
-     *            The connection
-     * @return result set
-     * @throws SQLException
-     *             on sql error
-     */
-    public ResultSet sqlSelectPrepared(Pair<String, List<?>> statement, Connection connection) throws SQLException
-    {
-        PreparedStatement sqlStatement = connection.prepareStatement(statement.getLeft());
-    }
-
-    /**
-     * Executes an sql select statement on the given connection and saves it in a statement pool.
+     * Executes an sql select statement on the given connection.
      * 
      * @param statement
      *            The statement
@@ -120,11 +105,18 @@ public final class DatabaseManager
      * @return result set
      * @throws SQLException
      *             on sql error
+     * @throws IllegalArgumentException
+     *             if the arguments are null
      */
-    public ResultSet sqlSelectPrepared(String statement, Connection connection) throws SQLException
+    public ResultSet sqlSelect(String statement, Connection connection) throws SQLException, IllegalArgumentException
     {
-        Pair<String, List<?>> pair = Pair.of(statement, null);
-        return sqlSelectPrepared(pair, connection);
-    }
+        if (statement == null || !StringUtils.isNotBlank(statement) || connection == null)
+        {
+            throw new IllegalArgumentException("Arguments must not be null!");
+        }
 
+        Statement sqlStatement = connection.createStatement();
+
+        return sqlStatement.executeQuery(statement);
+    }
 }

@@ -1,9 +1,12 @@
 package com.github.divineForce.Database.Meta;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.divineForce.Database.FieldType;
 import com.github.divineForce.Database.Annotation.DatabaseTable;
 
 /**
@@ -63,6 +66,26 @@ public class TableMetaData
     public String getTableName()
     {
         return databaseTable;
+    }
+
+    /**
+     * Returns all columns which are keys.
+     * 
+     * @return Collection
+     */
+    public Collection<ColumnMetaData> getKeyColumns()
+    {
+        Collection<ColumnMetaData> keyColumns = Collections.EMPTY_LIST;
+
+        for (ColumnMetaData column : columns.values())
+        {
+            if (column.getFieldType() == FieldType.KEY || column.getFieldType() == FieldType.AUTO_KEY)
+            {
+                keyColumns.add(column);
+            }
+        }
+
+        return keyColumns;
     }
 
 }
