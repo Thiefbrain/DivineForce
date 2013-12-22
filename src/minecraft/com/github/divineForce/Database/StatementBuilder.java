@@ -42,7 +42,7 @@ public class StatementBuilder
                 fieldBuilder.append(", ");
             }
 
-            fieldBuilder.append("`").append(column.getKey()).append("`");
+            fieldBuilder.append("`").append(column.getValue().getColumn()).append("`");
         }
 
         sqlStatement.append(fieldBuilder);
@@ -66,11 +66,11 @@ public class StatementBuilder
      */
     public static <T> String buildInsert(T argInstance, Class<?> argClass) throws InvocationTargetException, IllegalAccessException
     {
+        TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
+
         StringBuilder sqlStatement = new StringBuilder("INSERT INTO ");
         StringBuilder fieldBuilder = new StringBuilder();
         StringBuilder valuesBuilder = new StringBuilder();
-
-        TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
 
         for (Map.Entry<String, ColumnMetaData> column : metaData.getColumns().entrySet())
         {
@@ -78,7 +78,7 @@ public class StatementBuilder
             {
                 fieldBuilder.append(", ");
             }
-            fieldBuilder.append("`").append(column.getKey()).append("`");
+            fieldBuilder.append("`").append(column.getValue().getColumn()).append("`");
 
             ColumnMetaData columnMetaData = column.getValue();
             Class<?> returnType = columnMetaData.getReturnType();
@@ -90,6 +90,56 @@ public class StatementBuilder
         sqlStatement.append(") VALUES (");
         sqlStatement.append(valuesBuilder);
         sqlStatement.append(")");
+
+        return sqlStatement.toString();
+    }
+
+    /**
+     * Creates an UPDATE statement from the given instance and class
+     * 
+     * @param argInstance
+     *            The instance to get the data from
+     * @param argClass
+     *            The class or interface representating the database table
+     * @return SQL string
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
+    public static <T> String buildUpdate(T argInstance, Class<?> argClass) throws InvocationTargetException, IllegalAccessException
+    {
+        TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
+
+        StringBuilder sqlStatement = new StringBuilder("UPDATE ");
+        StringBuilder values = new StringBuilder();
+
+        sqlStatement.append("`").append(metaData.getTableName()).append("`");
+        sqlStatement.append(" SET ");
+
+        for (Map.Entry<String, ColumnMetaData> column : metaData.getColumns().entrySet())
+        {
+            if (values.length() > 0)
+            {
+                values.append(", ");
+            }
+            values.append("`").append(column.getValue().getColumn()).append("`");
+            values.append(" = '").append(getColumnValue(argInstance, column.getValue())).append("'");
+        }
+
+        sqlStatement.append(values);
+        sqlStatement.append(" WHERE ");
+
+        Iterator<ColumnMetaData> keyColumnsIterator = metaData.getKeyColumns().iterator();
+
+        while (keyColumnsIterator.hasNext())
+        {
+            ColumnMetaData keyColumn = keyColumnsIterator.next();
+            sqlStatement.append("`").append(keyColumn.getColumn()).append("` = '").append(getColumnValue(argInstance, keyColumn)).append("'");
+
+            if (keyColumnsIterator.hasNext())
+            {
+                sqlStatement.append(" AND ");
+            }
+        }
 
         return sqlStatement.toString();
     }
@@ -126,6 +176,26 @@ public class StatementBuilder
                 sql.append(" AND ");
             }
         }
+
+        return sql.toString();
+    }
+
+    /**
+     * Builds an INSERT INTO ... ON DUPLICATE KEY UPDATE statement.
+     * 
+     * @param argInstance
+     *            The instance to get the data from
+     * @param argClass
+     *            The class representing the database table
+     * @return String SQL
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
+    public static <T> String buildMerge(T argInstance, Class<?> argClass) throws IllegalAccessException, InvocationTargetException
+    {
+        StringBuilder sql = new StringBuilder(buildInsert(argInstance, argClass));
+        sql.append(" ON DUPLICATE KEY ");
+        sql.append(buildUpdate(argInstance, argClass));
 
         return sql.toString();
     }
