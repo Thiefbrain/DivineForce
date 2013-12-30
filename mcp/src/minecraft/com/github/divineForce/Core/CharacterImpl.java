@@ -33,28 +33,6 @@ public class CharacterImpl implements Character
     }
 
     /**
-     * {@inheritDoc}
-     * 
-     * @see java.lang.Object#equals(Object)
-     */
-    @Override
-    public final boolean equals(final Object another)
-    {
-        if (!(another instanceof CharacterImpl))
-        {
-            return false;
-        }
-
-        // we assume that the instance is the same if the entity is the same
-        if (((CharacterImpl) another).getPlayer().entityId == this.getPlayer().entityId)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Returns the class of the caracter
      * 
      * @return {@link AbstractCharacterClass}
@@ -81,16 +59,6 @@ public class CharacterImpl implements Character
     }
 
     /**
-     * Returns the player entity this character belongs to.
-     * 
-     * @return {@link EntityPlayer}
-     */
-    public final EntityPlayer getPlayer()
-    {
-        return player;
-    }
-
-    /**
      * Gets the name of the player
      * 
      * @return The player name
@@ -102,21 +70,70 @@ public class CharacterImpl implements Character
     }
 
     /**
-     * {@inheritDoc}
-     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof CharacterImpl))
+        {
+            return false;
+        }
+        CharacterImpl other = (CharacterImpl) obj;
+        if (characterClass == null)
+        {
+            if (other.characterClass != null)
+            {
+                return false;
+            }
+        }
+        else if (!characterClass.equals(other.characterClass))
+        {
+            return false;
+        }
+        if (id != other.id)
+        {
+            return false;
+        }
+        if (level != other.level)
+        {
+            return false;
+        }
+        if (player == null)
+        {
+            if (other.player != null)
+            {
+                return false;
+            }
+        }
+        else if (!player.equals(other.player))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * @see java.lang.Object#hashCode()
      */
     @Override
-    public final int hashCode()
+    public int hashCode()
     {
         final int prime = 31;
-        int hash = prime;
-
-        hash += characterClass.hashCode() * prime;
-        hash += level * prime;
-        hash += player.hashCode() * prime;
-
-        return hash;
+        int result = 1;
+        result = prime * result + ((characterClass == null) ? 0 : characterClass.hashCode());
+        result = prime * result + id;
+        result = prime * result + level;
+        result = prime * result + ((player == null) ? 0 : player.hashCode());
+        return result;
     }
 
     /**
@@ -140,5 +157,11 @@ public class CharacterImpl implements Character
     public void setLevel(int argLevel)
     {
         level = argLevel;
+    }
+
+    @Override
+    public EntityPlayer getPlayerEntity()
+    {
+        return player;
     }
 }

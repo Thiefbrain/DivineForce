@@ -28,7 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
  * @author Thiefbrain
  */
 @Mod(modid = DivineForce.ID, name = DivineForce.NAME, version = DivineForce.VERSION)
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "DivineForce" }, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = { "DivineForce" }, packetHandler = PacketHandler.class)
 public class DivineForce
 {
 
