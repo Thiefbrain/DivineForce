@@ -7,11 +7,10 @@ Coding conventions
 ===========
 These are the coding conventions for this mod:
 
-1. Each Class has to overwrite Object.toString(), Object.hashCode() and Object.equals()
-2. Block-brackets have to be on a single line (not: `if (...) {`)
-3. Each function and class- or instance-variables as well as classes should have a java doc comment
-4. Outputs should be internationalized
-5. Lines have a max-length of 160 characters (including spaces)
+1. Block-brackets have to be on a single line (not: `if (...) {`)
+2. Each function and class- or instance-variables as well as classes should have a java doc comment
+3. Outputs should be internationalized
+4. Lines have a max-length of 160 characters (including spaces)
 
 Packets
 ===========
@@ -21,3 +20,7 @@ All packets of this mod are built like this:
     | Packet ID | Length | Packet data |
     | (1 byte)  |        |             |
     +-----------+--------+-------------+
+    
+Technical documentation
+===========
+A technical documentation of this mod can be found in the documentation folder.

@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.divineForce.Core.Classes.CharacterClass;
+import com.github.divineForce.Core.Classes.CharacterClass.CharacterClasses;
 import com.github.divineForce.Database.DatabaseManager;
 import com.github.divineForce.Database.StatementBuilder;
 
@@ -81,26 +83,29 @@ public final class CharacterFactory
             String statement = StatementBuilder.buildSelect(Character.class, "player_name = '" + playerEntity.getEntityName() + "'");
             ResultSet resultSet = DatabaseManager.getInstance().sqlSelect(statement, connection);
 
+            Character character = null;
+
             if (resultSet.next())
             {
-                Character character = newCharacter(playerEntity, null); // TODO: Set character class
+                character = newCharacter(playerEntity, null);
 
                 character.setId(resultSet.getInt("id"));
                 character.setLevel(resultSet.getInt("level"));
-
-                characters.put(playerEntity, character);
-                success = true;
             }
             else if (createNew)
             {
-                Character character = newCharacter(playerEntity, null); // TODO: Set character class
+                character = newCharacter(playerEntity, null);
 
                 character.setLevel(1);
+            }
 
+            if (character != null)
+            {
                 characters.put(playerEntity, character);
                 success = true;
             }
 
+            resultSet.close();
             connection.close();
         }
 
@@ -113,10 +118,10 @@ public final class CharacterFactory
      * @param playerEntity
      *            {@link EntityPlayer} The entity.
      * @param characterClass
-     *            {@link AbstractCharacterClass} The class.
+     *            {@link CharacterClass} The class.
      * @return {@link CharacterImpl} The character object
      */
-    public CharacterImpl newCharacter(final EntityPlayer playerEntity, final AbstractCharacterClass characterClass)
+    public CharacterImpl newCharacter(final EntityPlayer playerEntity, final CharacterClass characterClass)
     {
         final CharacterImpl character = new CharacterImpl(playerEntity, characterClass);
 

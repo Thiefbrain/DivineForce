@@ -1,5 +1,6 @@
 package com.github.divineForce.Core;
 
+import com.github.divineForce.Core.Classes.CharacterClass;
 import com.github.divineForce.Database.FieldType;
 import com.github.divineForce.Database.Annotation.DatabaseColumn;
 import com.github.divineForce.Database.Annotation.DatabaseTable;
@@ -62,5 +63,20 @@ public interface Character
      * @return {@link EntityPlayer}
      */
     EntityPlayer getPlayerEntity();
+
+    /**
+     * Gets the character class of the character.
+     * 
+     * @return {@link CharacterClass}
+     */
+    CharacterClass getCharacterClass();
+
+    /**
+     * Sets the character class for the current character
+     * 
+     * @param characterClass
+     *            {@link CharacterClass}
+     */
+    void setCharacterClass(CharacterClass characterClass);
 
 }

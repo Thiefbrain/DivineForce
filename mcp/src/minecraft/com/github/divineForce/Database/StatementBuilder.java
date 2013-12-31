@@ -215,7 +215,7 @@ public class StatementBuilder
         Class<?> returnType = argColumn.getReturnType();
         Object object = returnType.cast(argColumn.getGetterMethod().invoke(argInstance, (Object[]) null));
 
-        if (object == null && (argColumn.getFieldType() == FieldType.AUTO_KEY) || argColumn.getFieldType() == FieldType.AUTO_VALUE)
+        if (object == null && (argColumn.getFieldType() == FieldType.AUTO_KEY || argColumn.getFieldType() == FieldType.AUTO_VALUE))
         {
             // TODO: Set key (select from sequence) or value (not sure what to do on AUTO_VALUE)
         }

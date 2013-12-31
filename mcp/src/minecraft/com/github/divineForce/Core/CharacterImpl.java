@@ -1,5 +1,7 @@
 package com.github.divineForce.Core;
 
+import com.github.divineForce.Core.Classes.CharacterClass;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 /**
@@ -12,7 +14,7 @@ public class CharacterImpl implements Character
     /** The id in the database */
     private int id;
     /** The class of the character */
-    private final AbstractCharacterClass characterClass;
+    private CharacterClass characterClass;
     /** The level of the character */
     private int level = 1;
     /** The player entity */
@@ -24,9 +26,9 @@ public class CharacterImpl implements Character
      * @param argPlayer
      *            {@link EntityPlayer} the player to create a character on
      * @param argCharacterClass
-     *            {@link AbstractCharacterClass} The character class
+     *            {@link CharacterClass} The character class
      */
-    CharacterImpl(final EntityPlayer argPlayer, final AbstractCharacterClass argCharacterClass)
+    CharacterImpl(final EntityPlayer argPlayer, final CharacterClass argCharacterClass)
     {
         characterClass = argCharacterClass;
         player = argPlayer;
@@ -35,9 +37,9 @@ public class CharacterImpl implements Character
     /**
      * Returns the class of the caracter
      * 
-     * @return {@link AbstractCharacterClass}
+     * @return {@link CharacterClass}
      */
-    public final AbstractCharacterClass getCharacterClass()
+    public final CharacterClass getCharacterClass()
     {
         return characterClass;
     }
@@ -163,5 +165,11 @@ public class CharacterImpl implements Character
     public EntityPlayer getPlayerEntity()
     {
         return player;
+    }
+
+    @Override
+    public void setCharacterClass(CharacterClass characterClass)
+    {
+        this.characterClass = characterClass;
     }
 }
