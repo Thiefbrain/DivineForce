@@ -90,13 +90,13 @@ public class DivineForce
     }
 
     /**
-     * Get the worlds where DivineForce is activated, seperated by commas. This is the same value as in the config file.
+     * Get the worlds where DivineForce is activated as String array.
      * 
-     * @return A comma-seperated list of worlds
+     * @return A array with all worlds nay
      */
-    public final String getWorlds()
+    public final String[] getWorlds()
     {
-        return worlds;
+        return worlds.split(",");
     }
 
     /**

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 
 import com.github.divineForce.Core.CharacterFactory;
+import com.github.divineForce.Utils.StringUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -36,7 +37,7 @@ public class DivineForceEventHandler
             final EntityPlayer player = (EntityPlayer) entityJoinWorldEvent.entity;
 
             // the world is one of the worlds DivineForce is activated in
-            if (DivineForce.getInstance().getWorlds().contains(world.getWorldInfo().getWorldName()))
+            if (StringUtils.arrayContains(DivineForce.getInstance().getWorlds(), world.getWorldInfo().getWorldName()))
             {
                 try
                 {

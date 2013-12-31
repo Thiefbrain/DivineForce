@@ -28,7 +28,7 @@ public class StatementBuilder
      * @throws IllegalArgumentException
      *             if this class has no @DatabaseTable annotation.
      */
-    public static String buildSelectStatement(Class<?> argClass) throws IllegalArgumentException
+    public static String buildSelect(Class<?> argClass, String filter) throws IllegalArgumentException
     {
         StringBuilder sqlStatement = new StringBuilder("SELECT ");
         StringBuilder fieldBuilder = new StringBuilder();
@@ -47,6 +47,7 @@ public class StatementBuilder
 
         sqlStatement.append(fieldBuilder);
         sqlStatement.append(" FROM ").append(metaData.getTableName());
+        sqlStatement.append(" WHERE " + filter);
 
         return sqlStatement.toString();
     }
