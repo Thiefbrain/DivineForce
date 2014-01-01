@@ -1,18 +1,11 @@
 package com.github.divineForce.Utils;
 
-public class StringUtils
+public final class StringUtils
 {
 
-    /**
-     * Converts a object to a string. If the object is null, a empty string will be returned
-     * 
-     * @param o
-     *            The {@link Object} to convert
-     * @return String representation of the object
-     */
-    public static String nn(final Object o)
+    // empty constructor to prevent instance creation
+    private StringUtils()
     {
-        return (o == null ? "" : o.toString());
     }
 
     /**
@@ -38,4 +31,31 @@ public class StringUtils
 
         return false;
     }
+
+    /**
+     * Converts a object to a string. If the object is null, a empty string will be returned
+     * 
+     * @param o
+     *            The {@link Object} to convert to a string
+     * @return String representation of the object
+     */
+    public static String nn(final Object o)
+    {
+        return nn(o, "");
+    }
+
+    /**
+     * Converts a object to a string or returns the default value if the object is null
+     * 
+     * @param o
+     *            The {@link Object} to convert to a string
+     * @param def
+     *            The default {@link String}
+     * @return
+     */
+    public static String nn(Object o, String def)
+    {
+        return (o == null ? def : o.toString());
+    }
+
 }

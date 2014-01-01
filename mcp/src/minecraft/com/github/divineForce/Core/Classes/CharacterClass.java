@@ -56,13 +56,60 @@ public abstract class CharacterClass
     /**
      * Returns the character class with the given ID or null if it isn't loaded
      * 
-     * @param characterClass
+     * @param argCharacterClass
      *            The ID of the character class
      * @return The instance of the character class or null
      */
-    public static CharacterClass getCharacterClass(CharacterClasses characterClass)
+    public final static CharacterClass getCharacterClass(CharacterClasses argCharacterClass)
     {
-        return instances.get(characterClass);
+        CharacterClass characterClass = instances.get(argCharacterClass);
+
+        if (characterClass == null)
+        {
+            switch (argCharacterClass)
+            {
+                case ARCANE:
+                    characterClass = new Arcane();
+                    break;
+                case ARMS:
+                    characterClass = new Arms();
+                    break;
+                case ASSASSIN:
+                    characterClass = new Assassin();
+                    break;
+                case BERSERKER:
+                    characterClass = new Berserker();
+                    break;
+                case ELEMENTAL:
+                    characterClass = new Elemental();
+                    break;
+                case FIGHTER:
+                    characterClass = new Fighter();
+                    break;
+                case GUARDIAN:
+                    characterClass = new Guardian();
+                    break;
+                case HOLY:
+                    characterClass = new Holy();
+                    break;
+                case MAGE:
+                    characterClass = new Mage();
+                    break;
+                case ROGUE:
+                    characterClass = new Rogue();
+                    break;
+                case SNIPER:
+                    characterClass = new Sniper();
+                    break;
+                case WARRIOR:
+                    characterClass = new Warrior();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown Class-ID " + argCharacterClass);
+            }
+        }
+
+        return characterClass;
     }
 
     /**
@@ -79,7 +126,7 @@ public abstract class CharacterClass
      * 
      * @return true or false
      */
-    public boolean isSubclass()
+    public final boolean isSubclass()
     {
         return (classId % 100 > 0);
     }
@@ -91,8 +138,14 @@ public abstract class CharacterClass
      *            {@link CharacterClass}
      * @return true or false
      */
-    public boolean isSubclassOf(final CharacterClass otherClass)
+    public final boolean isSubclassOf(final CharacterClass otherClass)
     {
-        return ((int) otherClass.classId / 100 == (int) classId / 100 && otherClass.classId / 100.0f < classId / 100.0f);
+        return (otherClass.classId / 100 == classId / 100 && otherClass.classId / 100.0f < classId / 100.0f);
     }
+
+    /**
+     * Returns the name of the class as string
+     */
+    @Override
+    public abstract String toString();
 }

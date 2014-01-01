@@ -10,12 +10,12 @@ import net.minecraft.item.Item;
  * @author Thiefbrain
  * @since 31 Dec 2013
  */
-public final class Warrior extends CharacterClass
+public class Arcane extends CharacterClass
 {
 
-    public Warrior()
+    public Arcane()
     {
-        super(CharacterClasses.WARRIOR);
+        super(CharacterClasses.ARCANE);
     }
 
     @Override
@@ -28,7 +28,7 @@ public final class Warrior extends CharacterClass
     @Override
     public String toString()
     {
-        return LanguageManager.getInstance().getLanguageString("class.warrior", "Warrior");
+        return LanguageManager.getInstance().getLanguageString("class.arcane", "Arcane");
     }
 
 }

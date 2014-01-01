@@ -30,7 +30,7 @@ public final class ClientProxy extends CommonProxy
     @Override
     public void init(final FMLInitializationEvent event)
     {
-        LanguageManager.getInstance().init(language); // TODO: Add configurable language
+        LanguageManager.getInstance().loadLanguage(language); // TODO: Add configurable language
     }
 
     /**

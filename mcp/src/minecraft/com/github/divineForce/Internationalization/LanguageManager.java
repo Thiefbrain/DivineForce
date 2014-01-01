@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import com.github.divineForce.DivineForce;
+import com.github.divineForce.Utils.StringUtils;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -18,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 
  */
 @SideOnly(Side.CLIENT)
-public class LanguageManager
+public final class LanguageManager
 {
 
     /** A list of loaded languages */
@@ -47,14 +48,6 @@ public class LanguageManager
         loadLanguage("en_US");
     }
 
-    public void init(final String languageCode)
-    {
-        if (loadedLanguages.contains(languageCode))
-        {
-            loadLanguage(languageCode);
-        }
-    }
-
     /**
      * Loads a language by a language code (RFC 5646).
      * 
@@ -63,9 +56,39 @@ public class LanguageManager
      */
     public void loadLanguage(final String languageCode)
     {
-        loadedLanguages.add(languageCode);
-        LanguageRegistry.instance().loadLocalization("config/DivineForce/lang/" + languageCode + ".lang", languageCode, false); // TODO: Language files not
-                                                                                                                                // found
+        if (loadedLanguages.contains(languageCode))
+        {
+            loadedLanguages.add(languageCode);
+            LanguageRegistry.instance().loadLocalization("config/DivineForce/lang/" + languageCode + ".lang", languageCode, false); // TODO: Language files not
+        } // found
+    }
+
+    /**
+     * Returns a translation for the specific key
+     * 
+     * @param key
+     *            String
+     * @return String
+     */
+    public String getLanguageString(final String key)
+    {
+        return getLanguageString(key, null);
+    }
+
+    /**
+     * Returns a translation for the specific key or a fallback if the key could not be found.
+     * 
+     * @param key
+     *            String
+     * @param fallback
+     *            String
+     * @return
+     */
+    public String getLanguageString(final String key, final String fallback)
+    {
+        String translation = LanguageRegistry.instance().getStringLocalization(key);
+
+        return StringUtils.nn(translation, fallback);
     }
 
 }
