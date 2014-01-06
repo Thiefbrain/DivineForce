@@ -1,4 +1,4 @@
-package com.github.divineForce.Core;
+package com.github.divineForce.core;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.divineForce.Core.Classes.CharacterClass;
-import com.github.divineForce.Core.Classes.CharacterClass.CharacterClasses;
-import com.github.divineForce.Database.DatabaseManager;
-import com.github.divineForce.Database.StatementBuilder;
+import com.github.divineForce.core.classes.CharacterClass;
+import com.github.divineForce.core.classes.CharacterClasses;
+import com.github.divineForce.database.DatabaseCache;
+import com.github.divineForce.database.DatabaseManager;
+import com.github.divineForce.database.StatementBuilder;
 
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -18,7 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
  * 
  * @author Thiefbrain
  */
-public final class CharacterFactory
+public final class CharacterFactory extends DatabaseCache
 {
     /** The instance */
     private static final CharacterFactory INSTANCE = new CharacterFactory();
@@ -128,5 +129,17 @@ public final class CharacterFactory
         characters.put(playerEntity, character);
 
         return character;
+    }
+
+    @Override
+    protected void addRelevantTables()
+    {
+        addRelevantTable("character");
+    }
+
+    @Override
+    public void clearCache()
+    {
+
     }
 }

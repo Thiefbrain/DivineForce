@@ -1,4 +1,4 @@
-package com.github.divineForce.Database.Annotation;
+package com.github.divineForce.database.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

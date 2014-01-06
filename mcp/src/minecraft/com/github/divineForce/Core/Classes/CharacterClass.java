@@ -1,6 +1,8 @@
-package com.github.divineForce.Core.Classes;
+package com.github.divineForce.core.classes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.minecraft.item.Item;
@@ -13,36 +15,6 @@ import net.minecraft.item.Item;
  */
 public abstract class CharacterClass
 {
-
-    /**
-     * IDs for the character classes
-     * 
-     * @author Thiefbrain
-     * @since 31 Dec 2013
-     */
-    public static enum CharacterClasses
-    {
-        WARRIOR(100), ARMS(110), BERSERKER(120), GUARDIAN(130),
-        ROGUE(200), FIGHTER(201), ASSASSIN(202), SNIPER(203),
-        MAGE(300), ARCANE(301), ELEMENTAL(302), HOLY(303);
-
-        private int id;
-
-        private CharacterClasses(int argId)
-        {
-            id = argId;
-        }
-
-        /**
-         * Returns the ID
-         * 
-         * @return int
-         */
-        public int getId()
-        {
-            return id;
-        }
-    }
 
     protected int classId;
     private static Map<CharacterClasses, CharacterClass> instances = new HashMap<>();
@@ -60,7 +32,7 @@ public abstract class CharacterClass
      *            The ID of the character class
      * @return The instance of the character class or null
      */
-    public final static CharacterClass getCharacterClass(CharacterClasses argCharacterClass)
+    public final static CharacterClass getCharacterClass(final CharacterClasses argCharacterClass)
     {
         CharacterClass characterClass = instances.get(argCharacterClass);
 
@@ -120,6 +92,27 @@ public abstract class CharacterClass
      * @return true if it can use the item, false otherwise
      */
     public abstract boolean canUseItem(final Item item);
+
+    /**
+     * Returns all subclasses of this character class
+     * 
+     * @return List<CharacterClass> of all sublcasses
+     */
+    public final List<CharacterClass> getSubclasses()
+    {
+        final List<CharacterClass> subclasses = new ArrayList<>();
+
+        for (final CharacterClasses characterClassId : CharacterClasses.values())
+        {
+            final CharacterClass characterClass = getCharacterClass(characterClassId);
+            if (characterClass.isSubclassOf(this))
+            {
+                subclasses.add(characterClass);
+            }
+        }
+
+        return subclasses;
+    }
 
     /**
      * Returns true if the class is a subclass (not one of Warrior, Rogue or Mage)

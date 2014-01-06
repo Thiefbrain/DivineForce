@@ -3,8 +3,8 @@ package com.github.divineForce;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-import com.github.divineForce.Core.CharacterFactory;
-import com.github.divineForce.Utils.StringUtils;
+import com.github.divineForce.core.CharacterFactory;
+import com.github.divineForce.utils.StringUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

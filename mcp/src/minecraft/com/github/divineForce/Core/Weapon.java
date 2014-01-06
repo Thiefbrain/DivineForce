@@ -1,4 +1,4 @@
-package com.github.divineForce.Core;
+package com.github.divineForce.core;
 
 public class Weapon extends Item
 {

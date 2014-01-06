@@ -1,6 +1,6 @@
-package com.github.divineForce.Core.Classes;
+package com.github.divineForce.core.classes;
 
-import com.github.divineForce.Internationalization.LanguageManager;
+import com.github.divineForce.internationalization.LanguageManager;
 
 import net.minecraft.item.Item;
 

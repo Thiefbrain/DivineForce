@@ -1,6 +1,6 @@
-package com.github.divineForce.Core;
+package com.github.divineForce.core;
 
-import com.github.divineForce.Core.Classes.CharacterClass;
+import com.github.divineForce.core.classes.CharacterClass;
 
 import net.minecraft.entity.player.EntityPlayer;
 

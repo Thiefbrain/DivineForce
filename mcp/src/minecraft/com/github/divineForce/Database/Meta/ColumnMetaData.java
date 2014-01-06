@@ -1,9 +1,9 @@
-package com.github.divineForce.Database.Meta;
+package com.github.divineForce.database.meta;
 
 import java.lang.reflect.Method;
 
-import com.github.divineForce.Database.FieldType;
-import com.github.divineForce.Database.Annotation.DatabaseColumn;
+import com.github.divineForce.database.FieldType;
+import com.github.divineForce.database.annotation.DatabaseColumn;
 
 /**
  * Represents a column defined by the {@link DatabaseColumn} annotation.

@@ -1,12 +1,12 @@
-package com.github.divineForce.Database;
+package com.github.divineForce.database;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.github.divineForce.Database.Meta.ColumnMetaData;
-import com.github.divineForce.Database.Meta.TableMetaData;
+import com.github.divineForce.database.meta.ColumnMetaData;
+import com.github.divineForce.database.meta.TableMetaData;
 
 /**
  * This class builds SQL statement for the given instance and class. <b>Note:</b> The DatabaseTable and DatabaseColumn annotations must be there!

@@ -1,4 +1,4 @@
-package com.github.divineForce.Database;
+package com.github.divineForce.database;
 
 /**
  * The field types for a database column. Each table must have at least one key.

@@ -1,4 +1,4 @@
-package com.github.divineForce.Database.Meta;
+package com.github.divineForce.database.meta;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.divineForce.Database.FieldType;
-import com.github.divineForce.Database.Annotation.DatabaseTable;
+import com.github.divineForce.database.FieldType;
+import com.github.divineForce.database.annotation.DatabaseTable;
 
 /**
  * Represents a database table set by the {@link DatabaseTable} annotation

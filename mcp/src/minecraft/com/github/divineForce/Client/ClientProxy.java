@@ -1,8 +1,8 @@
-package com.github.divineForce.Client;
+package com.github.divineForce.client;
 
 import com.github.divineForce.DivineForce;
-import com.github.divineForce.Internationalization.LanguageManager;
-import com.github.divineForce.Server.CommonProxy;
+import com.github.divineForce.internationalization.LanguageManager;
+import com.github.divineForce.server.CommonProxy;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -25,7 +25,7 @@ public final class ClientProxy extends CommonProxy
      * {@inheritDoc}
      * 
      * @Side Client
-     * @see com.github.divineForce.Server.CommonProxy#init()
+     * @see com.github.divineForce.server.CommonProxy#init()
      */
     @Override
     public void init(final FMLInitializationEvent event)
@@ -36,7 +36,7 @@ public final class ClientProxy extends CommonProxy
     /**
      * {@inheritDoc}
      * 
-     * @see com.github.divineForce.Server.CommonProxy#preInit(FMLPreInitializationEvent, Configuration)
+     * @see com.github.divineForce.server.CommonProxy#preInit(FMLPreInitializationEvent, Configuration)
      */
     @Override
     public void preInit(final FMLPreInitializationEvent event, final Configuration config)
@@ -47,7 +47,7 @@ public final class ClientProxy extends CommonProxy
     /**
      * {@inheritDoc}
      * 
-     * @see com.github.divineForce.Server.CommonProxy#registerRenderers()
+     * @see com.github.divineForce.server.CommonProxy#registerRenderers()
      */
     @Override
     public void registerRenderers()

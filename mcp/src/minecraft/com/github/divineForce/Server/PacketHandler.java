@@ -1,7 +1,7 @@
-package com.github.divineForce.Server;
+package com.github.divineForce.server;
 
 import com.github.divineForce.DivineForce;
-import com.github.divineForce.Client.ClientPacketHandler;
+import com.github.divineForce.client.ClientPacketHandler;
 
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;

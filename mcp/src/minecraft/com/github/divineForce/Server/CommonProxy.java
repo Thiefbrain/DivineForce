@@ -1,4 +1,4 @@
-package com.github.divineForce.Server;
+package com.github.divineForce.server;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;

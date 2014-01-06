@@ -1,11 +1,11 @@
-package com.github.divineForce.Database.Annotation;
+package com.github.divineForce.database.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.github.divineForce.Database.FieldType;
+import com.github.divineForce.database.FieldType;
 
 /**
  * Defines which column the field represents.

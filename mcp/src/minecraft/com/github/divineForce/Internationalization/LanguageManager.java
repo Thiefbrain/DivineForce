@@ -1,4 +1,4 @@
-package com.github.divineForce.Internationalization;
+package com.github.divineForce.internationalization;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import com.github.divineForce.DivineForce;
-import com.github.divineForce.Utils.StringUtils;
+import com.github.divineForce.utils.StringUtils;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;

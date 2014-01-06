@@ -3,8 +3,8 @@ package com.github.divineForce;
 import java.io.File;
 import java.util.logging.Logger;
 
-import com.github.divineForce.Server.CommonProxy;
-import com.github.divineForce.Server.PacketHandler;
+import com.github.divineForce.server.CommonProxy;
+import com.github.divineForce.server.PacketHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
@@ -47,7 +47,7 @@ public class DivineForce
     public static DivineForce instance;
 
     /** Tells forge where to look for the proxies */
-    @SidedProxy(clientSide = "divineForce.Client.ClientProxy", serverSide = "divineForce.Server.CommonProxy")
+    @SidedProxy(clientSide = "divineForce.client.ClientProxy", serverSide = "divineForce.Server.CommonProxy")
     public static CommonProxy proxy;
 
     /** The logger. */
@@ -58,6 +58,9 @@ public class DivineForce
 
     /** The directory containing all data. */
     private String dataDirectory;
+
+    /** The timeout after caches are cleared */
+    private int cacheClearTimeout;
 
     /**
      * Gets the singleton instance of this class.
@@ -146,8 +149,8 @@ public class DivineForce
 
         DivineForce.proxy.preInit(event, config);
 
-        final ConfigCategory categoryServer = config.getCategory(Configuration.CATEGORY_GENERAL);
-        worlds = categoryServer.get("Worlds").getString();
+        final ConfigCategory categoryGeneral = config.getCategory(Configuration.CATEGORY_GENERAL);
+        worlds = categoryGeneral.get("Worlds").getString();
 
         config.save();
     }

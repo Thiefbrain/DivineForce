@@ -1,9 +1,9 @@
-package com.github.divineForce.Core;
+package com.github.divineForce.core;
 
-import com.github.divineForce.Core.Classes.CharacterClass;
-import com.github.divineForce.Database.FieldType;
-import com.github.divineForce.Database.Annotation.DatabaseColumn;
-import com.github.divineForce.Database.Annotation.DatabaseTable;
+import com.github.divineForce.core.classes.CharacterClass;
+import com.github.divineForce.database.FieldType;
+import com.github.divineForce.database.annotation.DatabaseColumn;
+import com.github.divineForce.database.annotation.DatabaseTable;
 
 import net.minecraft.entity.player.EntityPlayer;
 

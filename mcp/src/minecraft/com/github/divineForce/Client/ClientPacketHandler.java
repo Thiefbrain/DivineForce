@@ -1,4 +1,4 @@
-package com.github.divineForce.Client;
+package com.github.divineForce.client;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.INetworkManager;

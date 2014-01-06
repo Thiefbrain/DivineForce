@@ -1,4 +1,4 @@
-package com.github.divineForce.Utils;
+package com.github.divineForce.utils;
 
 public final class StringUtils
 {

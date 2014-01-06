@@ -1,4 +1,4 @@
-package com.github.divineForce.Database;
+package com.github.divineForce.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
