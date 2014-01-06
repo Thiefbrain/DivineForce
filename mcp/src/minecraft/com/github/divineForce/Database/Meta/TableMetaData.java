@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.divineForce.database.FieldType;
+import com.github.divineForce.database.annotation.DatabaseColumn;
 import com.github.divineForce.database.annotation.DatabaseTable;
 
 /**
@@ -16,18 +17,19 @@ import com.github.divineForce.database.annotation.DatabaseTable;
  */
 public class TableMetaData
 {
-    private String databaseTable;
-    private Map<String, ColumnMetaData> columns = new HashMap<String, ColumnMetaData>();
+    private final String databaseTable;
+    private final Map<String, ColumnMetaData> columns = new HashMap<String, ColumnMetaData>();
 
-    private TableMetaData(Class<?> argClass)
+    private TableMetaData(final Class<?> argClass)
     {
         databaseTable = argClass.getAnnotation(DatabaseTable.class).value();
 
-        Method[] methods = argClass.getDeclaredMethods();
-        for (Method method : methods)
+        final Method[] methods = argClass.getDeclaredMethods();
+        for (final Method method : methods)
         {
             // we only need getter methods
-            if (method.getName().startsWith("get") || (method.getName().startsWith("is") && method.getReturnType() == Boolean.TYPE))
+            if (method.isAnnotationPresent(DatabaseColumn.class) && method.getName().startsWith("get")
+                    || (method.getName().startsWith("is") && method.getReturnType() == Boolean.TYPE))
             {
                 columns.put(method.getName().replace("get", "").replace("is", ""), new ColumnMetaData(method));
             }
@@ -41,7 +43,7 @@ public class TableMetaData
      *            The class
      * @return {@link TableMetaData} instance
      */
-    public static TableMetaData getTableMetaData(Class<?> argClass)
+    public static TableMetaData getTableMetaData(final Class<?> argClass)
     {
         if (argClass.isAnnotationPresent(DatabaseTable.class))
         {
@@ -75,9 +77,9 @@ public class TableMetaData
      */
     public Collection<ColumnMetaData> getKeyColumns()
     {
-        Collection<ColumnMetaData> keyColumns = Collections.EMPTY_LIST;
+        final Collection<ColumnMetaData> keyColumns = Collections.EMPTY_LIST;
 
-        for (ColumnMetaData column : columns.values())
+        for (final ColumnMetaData column : columns.values())
         {
             if (column.getFieldType() == FieldType.KEY || column.getFieldType() == FieldType.AUTO_KEY)
             {

@@ -1,5 +1,8 @@
 package com.github.divineForce.server;
 
+import com.github.divineForce.DivineForce;
+import com.github.divineForce.DivineForceConfig;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -33,7 +36,7 @@ public class CommonProxy
      * @param config
      *            {@link Configuration}
      */
-    public void preInit(final FMLPreInitializationEvent event, final Configuration config)
+    public void preInit(final FMLPreInitializationEvent event, final DivineForceConfig config)
     {
     }
 

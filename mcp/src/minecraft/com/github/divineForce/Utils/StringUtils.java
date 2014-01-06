@@ -1,5 +1,11 @@
 package com.github.divineForce.utils;
 
+/**
+ * Some string utils
+ * 
+ * @author Thiefbrain
+ * 
+ */
 public final class StringUtils
 {
 
@@ -21,9 +27,9 @@ public final class StringUtils
     {
         needle = nn(needle);
 
-        for (int i = 0; i < array.length; i++)
+        for (final String element : array)
         {
-            if (needle.equalsIgnoreCase(array[i]))
+            if (needle.equalsIgnoreCase(element.trim()))
             {
                 return true;
             }
@@ -53,7 +59,7 @@ public final class StringUtils
      *            The default {@link String}
      * @return
      */
-    public static String nn(Object o, String def)
+    public static String nn(final Object o, final String def)
     {
         return (o == null ? def : o.toString());
     }

@@ -36,8 +36,10 @@ public class DivineForceEventHandler
             final World world = entityJoinWorldEvent.world;
             final EntityPlayer player = (EntityPlayer) entityJoinWorldEvent.entity;
 
+            final String worlds = DivineForceConfig.getInstance().getValueAsString("Worlds", "general", "");
+
             // the world is one of the worlds DivineForce is activated in
-            if (StringUtils.arrayContains(DivineForce.getInstance().getWorlds(), world.getWorldInfo().getWorldName()))
+            if (StringUtils.arrayContains(worlds.split(","), world.getWorldInfo().getWorldName()))
             {
                 try
                 {

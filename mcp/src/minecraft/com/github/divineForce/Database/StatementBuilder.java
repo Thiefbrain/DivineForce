@@ -2,11 +2,11 @@ package com.github.divineForce.database;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import com.github.divineForce.database.meta.ColumnMetaData;
 import com.github.divineForce.database.meta.TableMetaData;
+import com.github.divineForce.utils.StringUtils;
 
 /**
  * This class builds SQL statement for the given instance and class. <b>Note:</b> The DatabaseTable and DatabaseColumn annotations must be there!
@@ -28,14 +28,14 @@ public class StatementBuilder
      * @throws IllegalArgumentException
      *             if this class has no @DatabaseTable annotation.
      */
-    public static String buildSelect(Class<?> argClass, String filter) throws IllegalArgumentException
+    public static String buildSelect(final Class<?> argClass, final String filter) throws IllegalArgumentException
     {
-        StringBuilder sqlStatement = new StringBuilder("SELECT ");
-        StringBuilder fieldBuilder = new StringBuilder();
+        final StringBuilder sqlStatement = new StringBuilder("SELECT ");
+        final StringBuilder fieldBuilder = new StringBuilder();
 
-        TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
+        final TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
 
-        for (Map.Entry<String, ColumnMetaData> column : metaData.getColumns().entrySet())
+        for (final Map.Entry<String, ColumnMetaData> column : metaData.getColumns().entrySet())
         {
             if (fieldBuilder.length() > 0)
             {
@@ -46,7 +46,7 @@ public class StatementBuilder
         }
 
         sqlStatement.append(fieldBuilder);
-        sqlStatement.append(" FROM ").append(metaData.getTableName());
+        sqlStatement.append(" FROM `").append(metaData.getTableName()).append("`");
         sqlStatement.append(" WHERE " + filter);
 
         return sqlStatement.toString();
@@ -65,15 +65,15 @@ public class StatementBuilder
      * @throws IllegalAccessException
      *             If the getter method is not accessible
      */
-    public static <T> String buildInsert(T argInstance, Class<?> argClass) throws InvocationTargetException, IllegalAccessException
+    public static <T> String buildInsert(final T argInstance, final Class<?> argClass) throws InvocationTargetException, IllegalAccessException
     {
-        TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
+        final TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
 
-        StringBuilder sqlStatement = new StringBuilder("INSERT INTO ");
-        StringBuilder fieldBuilder = new StringBuilder();
-        StringBuilder valuesBuilder = new StringBuilder();
+        final StringBuilder sqlStatement = new StringBuilder("INSERT INTO ");
+        final StringBuilder fieldBuilder = new StringBuilder();
+        final StringBuilder valuesBuilder = new StringBuilder();
 
-        for (Map.Entry<String, ColumnMetaData> column : metaData.getColumns().entrySet())
+        for (final Map.Entry<String, ColumnMetaData> column : metaData.getColumns().entrySet())
         {
             if (fieldBuilder.length() > 0)
             {
@@ -81,8 +81,7 @@ public class StatementBuilder
             }
             fieldBuilder.append("`").append(column.getValue().getColumn()).append("`");
 
-            ColumnMetaData columnMetaData = column.getValue();
-            Class<?> returnType = columnMetaData.getReturnType();
+            final ColumnMetaData columnMetaData = column.getValue();
             valuesBuilder.append("'").append(getColumnValue(argInstance, columnMetaData)).append("'");
         }
 
@@ -106,17 +105,17 @@ public class StatementBuilder
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public static <T> String buildUpdate(T argInstance, Class<?> argClass) throws InvocationTargetException, IllegalAccessException
+    public static <T> String buildUpdate(final T argInstance, final Class<?> argClass) throws InvocationTargetException, IllegalAccessException
     {
-        TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
+        final TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
 
-        StringBuilder sqlStatement = new StringBuilder("UPDATE ");
-        StringBuilder values = new StringBuilder();
+        final StringBuilder sqlStatement = new StringBuilder("UPDATE ");
+        final StringBuilder values = new StringBuilder();
 
         sqlStatement.append("`").append(metaData.getTableName()).append("`");
         sqlStatement.append(" SET ");
 
-        for (Map.Entry<String, ColumnMetaData> column : metaData.getColumns().entrySet())
+        for (final Map.Entry<String, ColumnMetaData> column : metaData.getColumns().entrySet())
         {
             if (values.length() > 0)
             {
@@ -129,11 +128,11 @@ public class StatementBuilder
         sqlStatement.append(values);
         sqlStatement.append(" WHERE ");
 
-        Iterator<ColumnMetaData> keyColumnsIterator = metaData.getKeyColumns().iterator();
+        final Iterator<ColumnMetaData> keyColumnsIterator = metaData.getKeyColumns().iterator();
 
         while (keyColumnsIterator.hasNext())
         {
-            ColumnMetaData keyColumn = keyColumnsIterator.next();
+            final ColumnMetaData keyColumn = keyColumnsIterator.next();
             sqlStatement.append("`").append(keyColumn.getColumn()).append("` = '").append(getColumnValue(argInstance, keyColumn)).append("'");
 
             if (keyColumnsIterator.hasNext())
@@ -156,20 +155,20 @@ public class StatementBuilder
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public static <T> String buildDelete(T argInstance, Class<?> argClass) throws InvocationTargetException, IllegalAccessException
+    public static <T> String buildDelete(final T argInstance, final Class<?> argClass) throws InvocationTargetException, IllegalAccessException
     {
-        TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
+        final TableMetaData metaData = TableMetaData.getTableMetaData(argClass);
 
-        StringBuilder sql = new StringBuilder("DELETE FROM ");
+        final StringBuilder sql = new StringBuilder("DELETE FROM ");
         sql.append("`").append(metaData.getTableName()).append("`");
 
         sql.append(" WHERE ");
 
-        Iterator<ColumnMetaData> keyColumnsIterator = metaData.getKeyColumns().iterator();
+        final Iterator<ColumnMetaData> keyColumnsIterator = metaData.getKeyColumns().iterator();
 
         while (keyColumnsIterator.hasNext())
         {
-            ColumnMetaData keyColumn = keyColumnsIterator.next();
+            final ColumnMetaData keyColumn = keyColumnsIterator.next();
             sql.append("`").append(keyColumn.getColumn()).append("` = '").append(getColumnValue(argInstance, keyColumn)).append("'");
 
             if (keyColumnsIterator.hasNext())
@@ -192,9 +191,9 @@ public class StatementBuilder
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public static <T> String buildMerge(T argInstance, Class<?> argClass) throws IllegalAccessException, InvocationTargetException
+    public static <T> String buildMerge(final T argInstance, final Class<?> argClass) throws IllegalAccessException, InvocationTargetException
     {
-        StringBuilder sql = new StringBuilder(buildInsert(argInstance, argClass));
+        final StringBuilder sql = new StringBuilder(buildInsert(argInstance, argClass));
         sql.append(" ON DUPLICATE KEY ");
         sql.append(buildUpdate(argInstance, argClass));
 
@@ -210,16 +209,16 @@ public class StatementBuilder
      * @throws InvocationTargetException
      * @throws {@link IllegalAccessException}
      */
-    private static <T> String getColumnValue(T argInstance, ColumnMetaData argColumn) throws InvocationTargetException, IllegalAccessException
+    private static <T> String getColumnValue(final T argInstance, final ColumnMetaData argColumn) throws InvocationTargetException, IllegalAccessException
     {
-        Class<?> returnType = argColumn.getReturnType();
-        Object object = returnType.cast(argColumn.getGetterMethod().invoke(argInstance, (Object[]) null));
+        final Class<?> returnType = argColumn.getReturnType();
+        final Object object = returnType.cast(argColumn.getGetterMethod().invoke(argInstance, (Object[]) null));
 
         if (object == null && (argColumn.getFieldType() == FieldType.AUTO_KEY || argColumn.getFieldType() == FieldType.AUTO_VALUE))
         {
             // TODO: Set key (select from sequence) or value (not sure what to do on AUTO_VALUE)
         }
 
-        return object.toString();
+        return StringUtils.nn(object);
     }
 }

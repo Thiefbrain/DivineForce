@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.divineForce.core.classes.CharacterClass;
-import com.github.divineForce.core.classes.CharacterClasses;
 import com.github.divineForce.database.DatabaseCache;
 import com.github.divineForce.database.DatabaseManager;
 import com.github.divineForce.database.StatementBuilder;
@@ -34,7 +33,7 @@ public final class CharacterFactory extends DatabaseCache
      */
     public static CharacterFactory getInstance()
     {
-        return CharacterFactory.INSTANCE;
+        return INSTANCE;
     }
 
     /**
@@ -72,7 +71,7 @@ public final class CharacterFactory extends DatabaseCache
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public boolean loadCharacterByEntity(final EntityPlayer playerEntity, boolean createNew) throws ClassNotFoundException, SQLException
+    public boolean loadCharacterByEntity(final EntityPlayer playerEntity, final boolean createNew) throws ClassNotFoundException, SQLException
     {
         boolean success = false;
 
@@ -81,8 +80,8 @@ public final class CharacterFactory extends DatabaseCache
         {
             final Connection connection = DatabaseManager.getInstance().getConnection("characters");
 
-            String statement = StatementBuilder.buildSelect(Character.class, "player_name = '" + playerEntity.getEntityName() + "'");
-            ResultSet resultSet = DatabaseManager.getInstance().sqlSelect(statement, connection);
+            final String statement = StatementBuilder.buildSelect(Character.class, "player_name = '" + playerEntity.getEntityName() + "'");
+            final ResultSet resultSet = DatabaseManager.getInstance().sqlSelect(statement, connection);
 
             Character character = null;
 

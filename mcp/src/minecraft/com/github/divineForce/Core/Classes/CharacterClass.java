@@ -98,7 +98,7 @@ public abstract class CharacterClass
      * 
      * @return List<CharacterClass> of all sublcasses
      */
-    public final List<CharacterClass> getSubclasses()
+    public final List<CharacterClass> getAllSubclasses()
     {
         final List<CharacterClass> subclasses = new ArrayList<>();
 

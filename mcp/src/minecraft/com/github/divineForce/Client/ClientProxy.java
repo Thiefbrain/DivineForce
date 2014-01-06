@@ -1,6 +1,7 @@
 package com.github.divineForce.client;
 
 import com.github.divineForce.DivineForce;
+import com.github.divineForce.DivineForceConfig;
 import com.github.divineForce.internationalization.LanguageManager;
 import com.github.divineForce.server.CommonProxy;
 
@@ -39,7 +40,7 @@ public final class ClientProxy extends CommonProxy
      * @see com.github.divineForce.server.CommonProxy#preInit(FMLPreInitializationEvent, Configuration)
      */
     @Override
-    public void preInit(final FMLPreInitializationEvent event, final Configuration config)
+    public void preInit(final FMLPreInitializationEvent event, final DivineForceConfig config)
     {
         DivineForce.getLogger().info("pre init client");
     }

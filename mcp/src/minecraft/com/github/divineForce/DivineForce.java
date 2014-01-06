@@ -18,7 +18,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.relauncher.Side;
 
-import net.minecraftforge.common.ConfigCategory;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -29,7 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
  */
 @Mod(modid = DivineForce.ID, name = DivineForce.NAME, version = DivineForce.VERSION)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "DivineForce" }, packetHandler = PacketHandler.class)
-public class DivineForce
+public final class DivineForce
 {
 
     /** The ID used by forge */
@@ -47,14 +46,11 @@ public class DivineForce
     public static DivineForce instance;
 
     /** Tells forge where to look for the proxies */
-    @SidedProxy(clientSide = "divineForce.client.ClientProxy", serverSide = "divineForce.Server.CommonProxy")
+    @SidedProxy(clientSide = "com.github.divineForce.client.ClientProxy", serverSide = "com.github.divineForce.server.CommonProxy")
     public static CommonProxy proxy;
 
     /** The logger. */
     private static Logger logger = FMLLog.getLogger();
-
-    /** The Worlds DivineForce is activated on */
-    private String worlds;
 
     /** The directory containing all data. */
     private String dataDirectory;
@@ -69,7 +65,7 @@ public class DivineForce
      */
     public static DivineForce getInstance()
     {
-        return DivineForce.instance;
+        return instance;
     }
 
     /**
@@ -90,16 +86,6 @@ public class DivineForce
     public final String getDataDirectory()
     {
         return dataDirectory;
-    }
-
-    /**
-     * Get the worlds where DivineForce is activated as String array.
-     * 
-     * @return A array with all worlds nay
-     */
-    public final String[] getWorlds()
-    {
-        return worlds.split(",");
     }
 
     /**
@@ -144,13 +130,13 @@ public class DivineForce
     {
         dataDirectory = event.getSuggestedConfigurationFile().getAbsolutePath() + "DivineForce" + File.pathSeparator;
 
+        // load config
         final Configuration config = new Configuration(event.getSuggestedConfigurationFile());
         config.load();
 
-        DivineForce.proxy.preInit(event, config);
+        final DivineForceConfig divineForceConfig = DivineForceConfig.init(config);
 
-        final ConfigCategory categoryGeneral = config.getCategory(Configuration.CATEGORY_GENERAL);
-        worlds = categoryGeneral.get("Worlds").getString();
+        DivineForce.proxy.preInit(event, divineForceConfig);
 
         config.save();
     }
