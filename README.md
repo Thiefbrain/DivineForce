@@ -5,12 +5,7 @@ This is the main Divine Force repository. This mod is open source, licensed unde
 
 Coding conventions
 ===========
-These are the coding conventions for this mod:
-
-1. Block-brackets have to be on a single line (not: `if (...) {`)
-2. Each function and class- or instance-variables as well as classes should have a java doc comment
-3. Outputs should be internationalized
-4. Lines have a max-length of 160 characters (including spaces)
+A code formatter for eclipse can be found in the directory mcp/eclipse/Minecraft
 
 Packets
 ===========
