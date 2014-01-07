@@ -8,6 +8,7 @@ import com.github.divineForce.utils.StringUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
@@ -36,22 +37,26 @@ public class DivineForceEventHandler
             final World world = entityJoinWorldEvent.world;
             final EntityPlayer player = (EntityPlayer) entityJoinWorldEvent.entity;
 
-            final String worlds = DivineForceConfig.getInstance().getValueAsString("Worlds", "general", "");
-
-            // the world is one of the worlds DivineForce is activated in
-            if (StringUtils.arrayContains(worlds.split(","), world.getWorldInfo().getWorldName()))
+            // we only want database handling server-side
+            if (world instanceof WorldServer)
             {
-                try
+                final String worlds = DivineForceConfig.getInstance().getValueAsString("Worlds", "general", "");
+
+                // the world is one of the worlds DivineForce is activated in
+                if (StringUtils.arrayContains(worlds.split(","), world.getWorldInfo().getWorldName()))
                 {
-                    CharacterFactory.getInstance().loadCharacterByEntity(player);
-                }
-                catch (final SQLException sqlException)
-                {
-                    DivineForce.getLogger().log(Level.SEVERE, "SQL Exception whilst player joining world", sqlException);
-                }
-                catch (final ClassNotFoundException classNotFoundException)
-                {
-                    DivineForce.getLogger().log(Level.SEVERE, "Failed to load H2 database driver!", classNotFoundException);
+                    try
+                    {
+                        CharacterFactory.getInstance().loadCharacterByEntity(player);
+                    }
+                    catch (final SQLException sqlException)
+                    {
+                        DivineForce.getLogger().log(Level.SEVERE, "SQL Exception whilst player joining world", sqlException);
+                    }
+                    catch (final ClassNotFoundException classNotFoundException)
+                    {
+                        DivineForce.getLogger().log(Level.SEVERE, "Failed to load H2 database driver!", classNotFoundException);
+                    }
                 }
             }
         }

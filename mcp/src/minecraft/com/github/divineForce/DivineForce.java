@@ -3,8 +3,10 @@ package com.github.divineForce;
 import java.io.File;
 import java.util.logging.Logger;
 
+import com.github.divineForce.database.DatabaseManager;
 import com.github.divineForce.server.CommonProxy;
 import com.github.divineForce.server.PacketHandler;
+import com.github.divineForce.utils.StringUtils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
@@ -128,7 +130,7 @@ public final class DivineForce
     @EventHandler
     public final void preInit(final FMLPreInitializationEvent event)
     {
-        dataDirectory = event.getSuggestedConfigurationFile().getAbsolutePath() + "DivineForce" + File.pathSeparator;
+        dataDirectory = StringUtils.getPathFromFile(event.getSuggestedConfigurationFile()) + File.separator + ID + File.separator;
 
         // load config
         final Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -137,6 +139,8 @@ public final class DivineForce
         final DivineForceConfig divineForceConfig = DivineForceConfig.init(config);
 
         DivineForce.proxy.preInit(event, divineForceConfig);
+
+        DatabaseManager.setDatabaseDirectory(dataDirectory + "data" + File.pathSeparator);
 
         config.save();
     }

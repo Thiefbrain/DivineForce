@@ -1,5 +1,7 @@
 package com.github.divineForce.utils;
 
+import java.io.File;
+
 /**
  * Some string utils
  * 
@@ -62,6 +64,30 @@ public final class StringUtils
     public static String nn(final Object o, final String def)
     {
         return (o == null ? def : o.toString());
+    }
+
+    /**
+     * Returns the path part for the given file. The path is automatically transformed to an absolute path.
+     * 
+     * @param file
+     *            The {@link File} to get the path part from
+     * @return Path as string
+     */
+    public static String getPathFromFile(final File file)
+    {
+        return getPathFromFilename(file.getAbsolutePath());
+    }
+
+    /**
+     * Returns the path part from the given filename
+     * 
+     * @param filename
+     *            Filename as String
+     * @return Path as string
+     */
+    public static String getPathFromFilename(final String filename)
+    {
+        return filename.substring(0, filename.lastIndexOf(File.separator));
     }
 
 }
