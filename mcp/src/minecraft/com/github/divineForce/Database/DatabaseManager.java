@@ -2,16 +2,13 @@ package com.github.divineForce.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.StringUtils;
 
 import com.github.divineForce.DivineForce;
@@ -108,15 +105,16 @@ public final class DatabaseManager
      * @throws IllegalArgumentException
      *             if the arguments are null
      */
-    public ResultSet sqlSelect(String statement, Connection connection) throws SQLException, IllegalArgumentException
+    public ResultSet sqlSelect(final String statement, final Connection connection) throws SQLException, IllegalArgumentException
     {
         if (statement == null || !StringUtils.isNotBlank(statement) || connection == null)
         {
             throw new IllegalArgumentException("Arguments must not be null!");
         }
 
-        Statement sqlStatement = connection.createStatement();
+        final Statement sqlStatement = connection.createStatement();
 
         return sqlStatement.executeQuery(statement);
     }
+
 }
