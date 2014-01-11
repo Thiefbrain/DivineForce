@@ -4,11 +4,16 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 
 import com.github.divineForce.core.CharacterFactory;
+import com.github.divineForce.utils.MinecraftUtils;
 import com.github.divineForce.utils.StringUtils;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.EnumGameType;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
@@ -38,7 +43,7 @@ public class DivineForceEventHandler
             final EntityPlayer player = (EntityPlayer) entityJoinWorldEvent.entity;
 
             // we only want database handling server-side
-            if (world instanceof WorldServer)
+            if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
             {
                 final String worlds = DivineForceConfig.getInstance().getValueAsString("Worlds", "general", "");
 
@@ -58,8 +63,15 @@ public class DivineForceEventHandler
                         DivineForce.getLogger().log(Level.SEVERE, "Failed to load H2 database driver!", classNotFoundException);
                     }
                 }
+
+                if (DivineForceConfig.getInstance().getValueAsBoolean("autoAdventuremode", "general", true))
+                {
+                    if (!MinecraftUtils.isOp(player) && ((EntityPlayerMP) player).theItemInWorldManager.getGameType() != EnumGameType.ADVENTURE)
+                    {
+                        player.setGameType(EnumGameType.ADVENTURE);
+                    }
+                }
             }
         }
     }
-
 }
