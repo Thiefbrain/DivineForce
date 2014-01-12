@@ -85,7 +85,8 @@ public final class DatabaseManager
     {
         if (!connectionPool.containsKey(database))
         {
-            connectionPool.put(database, DriverManager.getConnection("jdbc:h2:" + DatabaseManager.databaseDirectory + database, "sa", ""));
+            connectionPool.put(database,
+                    DriverManager.getConnection("jdbc:h2:file:" + DatabaseManager.databaseDirectory.replace('\\', '/') + database, "sa", ""));
         }
 
         return connectionPool.get(database);

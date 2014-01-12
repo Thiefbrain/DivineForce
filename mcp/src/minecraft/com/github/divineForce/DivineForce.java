@@ -8,7 +8,6 @@ import com.github.divineForce.server.CommonProxy;
 import com.github.divineForce.server.PacketHandler;
 import com.github.divineForce.utils.StringUtils;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -18,7 +17,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.relauncher.Side;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,7 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
  * @author Thiefbrain
  */
 @Mod(modid = DivineForce.ID, name = DivineForce.NAME, version = DivineForce.VERSION)
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "DivineForce" }, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { DivineForce.ID }, packetHandler = PacketHandler.class)
 public final class DivineForce
 {
 
@@ -39,9 +37,6 @@ public final class DivineForce
     public static final String NAME = "Divine Force";
     /** The version of the mod (will be shown at the modinfo on the client) */
     public static final String VERSION = "1.0.0";
-
-    /** The side of the mod (either server or client) */
-    public static final Side SIDE = FMLCommonHandler.instance().getEffectiveSide();
 
     /** The instance of this class (used by Forge) */
     @Instance(value = DivineForce.NAME)

@@ -1,5 +1,8 @@
 package com.github.divineForce.server;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.github.divineForce.DivineForce;
 import com.github.divineForce.DivineForceConfig;
 
@@ -16,10 +19,10 @@ import net.minecraftforge.common.Configuration;
 public class CommonProxy
 {
 
+    private final Map<String, String> playerVersions = new HashMap<>();
+
     /**
      * Used for side-specific initialization code. Called by {@link DivineForce#load(cpw.mods.fml.common.event.FMLInitializationEvent)}
-     * 
-     * @Side Server
      * 
      * @param event
      *            {@link FMLInitializationEvent}
@@ -45,6 +48,19 @@ public class CommonProxy
      */
     public void registerRenderers()
     {
+    }
+
+    /**
+     * Saves the installed mod version of the player in a map
+     * 
+     * @param player
+     *            The playername
+     * @param version
+     *            The installed version
+     */
+    public void setClientVersionForPlayer(final String player, final String version)
+    {
+        playerVersions.put(player, version);
     }
 
     /**

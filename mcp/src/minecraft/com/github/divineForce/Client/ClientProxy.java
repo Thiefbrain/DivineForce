@@ -4,6 +4,7 @@ import com.github.divineForce.DivineForce;
 import com.github.divineForce.DivineForceConfig;
 import com.github.divineForce.internationalization.LanguageManager;
 import com.github.divineForce.server.CommonProxy;
+import com.github.divineForce.utils.StringUtils;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -21,6 +22,17 @@ public final class ClientProxy extends CommonProxy
 
     /** The language to use */
     private final String language = "en_US";
+    private String remoteVersion;
+
+    /**
+     * Returns the server version of this mod
+     * 
+     * @return String
+     */
+    public String getRemoteVersion()
+    {
+        return StringUtils.nn(remoteVersion);
+    }
 
     /**
      * {@inheritDoc}
@@ -54,6 +66,17 @@ public final class ClientProxy extends CommonProxy
     public void registerRenderers()
     {
         // This is for rendering
+    }
+
+    /**
+     * Saves the remote server version in memory
+     * 
+     * @param remoteVersion
+     *            Server version as String
+     */
+    public void setRemoteVersion(final String remoteVersion)
+    {
+        this.remoteVersion = remoteVersion;
     }
 
     /**

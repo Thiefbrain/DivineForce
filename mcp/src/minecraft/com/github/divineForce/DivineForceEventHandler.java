@@ -1,19 +1,21 @@
 package com.github.divineForce;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
 import com.github.divineForce.core.CharacterFactory;
+import com.github.divineForce.network.NetworkHelper;
 import com.github.divineForce.utils.MinecraftUtils;
 import com.github.divineForce.utils.StringUtils;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.common.network.Player;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.EnumGameType;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
@@ -33,7 +35,7 @@ public class DivineForceEventHandler
      *            The event
      */
     @ForgeSubscribe
-    public final void onEntityJoinWorld(final EntityJoinWorldEvent entityJoinWorldEvent)
+    public final void onEntityJoinWorld(final EntityJoinWorldEvent entityJoinWorldEvent) throws IOException
     {
         // we only want to handle the player for now
         if (entityJoinWorldEvent.entity instanceof EntityPlayer)
@@ -43,8 +45,11 @@ public class DivineForceEventHandler
             final EntityPlayer player = (EntityPlayer) entityJoinWorldEvent.entity;
 
             // we only want database handling server-side
-            if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+            if (world instanceof WorldServer)
             {
+                // first send the packet to activate the mod
+                NetworkHelper.sendModInfoPacketToPlayer((Player) player);
+
                 final String worlds = DivineForceConfig.getInstance().getValueAsString("Worlds", "general", "");
 
                 // the world is one of the worlds DivineForce is activated in
